@@ -7,32 +7,33 @@ import {Base, styles} from './base';
 import reqwest from 'reqwest';
 
 //Clase que se usa en registration.js, es la que retorna el render para pintar el codigo que esta contiene
-export class Login extends Base {
-  submit(){
-    reqwest({  //Peticion de reqwest para enviar los datos
-      url: '/users/sing_in',
-      method: 'POST',
-      data: {
-        user: {
-          email: this.state.email,
-          password: this.state.password
-        }
-      },
-      headers:{
-        'X-CSRF-Token': window.GetTokenRequest.token
-      }
-    }).then(data=>{
-      console.log(data);
-    }).catch(err => console.log(err));
-
-  }
-
+export class SingUp extends Base {
 //Se mandan a llamar los metodos dependiendo el estado del form
+submit(){
+  reqwest({  //Peticion de reqwest para enviar los datos
+    url: '/users',
+    method: 'POST',
+    data: {
+      user: {
+        email: this.state.email,
+        password: this.state.password,
+        passwordConfirmation: this.state.passwordConfirmation
+      }
+    },
+    headers:{
+      'X-CSRF-Token': window.GetTokenRequest.token
+    }
+  }).then(data=>{
+    console.log(data);
+  }).catch(err => console.log(err));
+
+}
+
   render(){
     return (<MuiThemeProvider>
       <Formsy.Form onValid={()=>this.enableSubmitBtn()}
-            onValidSubmit={()=>this.submit()}
-            onInvalid={()=>this.disableSubmiBtn()}>
+            onInvalid={()=>this.disableSubmiBtn()}
+            onValidSubmit={()=>this.submit()}>
       <div>
           <div>
               <FormsyText
@@ -56,6 +57,18 @@ export class Login extends Base {
               type="password"
               floatingLabelText="Contraseña"/>
           </div>
+
+
+          <div>
+              <FormsyText
+              onChange={(e)=>this.syncField(e,"passwordConfirmation")}
+              name="passwordConfirmation"
+              required
+              floatingLabelFocusStyle = {styles.floatingLabelFocusStyle}
+              underlineFocusStyle = {styles.underLineStyle}
+              type="password"
+              floatingLabelText="Confirmar contraseña"/>
+          </div>
         </div>
           <div>
             <RaisedButton
@@ -64,9 +77,9 @@ export class Login extends Base {
             backgroundColor={styles.red}
             labelColor='#ffffff'
             type="submit"
-            label="Iniciar sesión"
+            label="Crear Cuenta"
             />
-            <a href="#" onClick={this.props.toggle} style={styles.leftSpace}>Registrarme</a>
+            <a href="#" onClick={this.props.toggle} style={styles.marginLeft}> Ya tengo Cuenta</a>
           </div>
       </Formsy.Form>
     </MuiThemeProvider>

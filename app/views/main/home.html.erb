@@ -1,3 +1,8 @@
-<div id="react-container"> <!--Contenedor de registration -->
+<!-- <div id="react-container"> Contenedor de registration
 
-</div>
+</div> -->
+
+<%= react_component("Registration")%> <!-- Helper que se unsa para renderizar registration de registration.js-->
+<%if user_signed_in?%>
+  <p>Hola Usuario</p>
+<%end%>

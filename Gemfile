@@ -32,7 +32,11 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'webpacker-react', '~> 0.2.0'
+#Devise para la autenticacion
+gem 'devise'
+#HAML para las vistas
+gem 'haml-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
